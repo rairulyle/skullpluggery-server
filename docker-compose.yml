@@ -9,8 +9,8 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - "d/docker/appdata/sonarr:/config"
-      - "d/shared:/data"
+      - "d:/docker/appdata/sonarr:/config"
+      - "d:/shared:/data"
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -26,8 +26,8 @@ services:
       - UMASK=002
       - TZ=Asia/Manila
     volumes:
-      - "d/docker/appdata/qbittorrent:/config"
-      - "d/shared/torrents:/downloads"
+      - "d:/docker/appdata/qbittorrent:/config"
+      - "d:/shared/torrents:/data/torrents"
     restart: unless-stopped
 
   prowlarr:
@@ -38,7 +38,7 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - "d/docker/appdata/prowlarr:/config"
+      - "d:/docker/appdata/prowlarr:/config"
     ports:
       - 9696:9696
     restart: unless-stopped
