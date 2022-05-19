@@ -3,15 +3,8 @@
   "version": "1.0.0",
   "description": "rairulyle's personal nas",
   "scripts": {
-    "start": "docker compose up",
-    "commit": "npm run commit:sonarr && npm run commit:qbittorrent && npm run commit:prowlarr",
-    "commit:sonarr": "docker commit sonarr",
-    "commit:qbittorrent": "docker commit qbittorrent",
-    "commit:prowlarr": "docker commit prowlarr",
-    "publish": "npm run publish:sonarr && npm run publish:qbittorrent && npm run publish:prowlarr",
-    "publish:sonarr": "docker push rairulyle/sonarr",
-    "publish:qbittorrent": "docker push rairulyle/qbittorrent",
-    "publish:prowlarr": "docker push rairulyle/prowlarr"
+    "start": "docker compose up -d",
+    "stop": "docker compose down"
   },
   "repository": {
     "type": "git",
