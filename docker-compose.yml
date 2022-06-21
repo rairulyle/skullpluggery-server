@@ -1,6 +1,31 @@
 ---
-version: "3.8"
+version: "3.4"
+
 services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /mnt/sda1/docker/appdata/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+  jellyfin:
+    container_name: jellyfin
+    image: cr.hotio.dev/hotio/jellyfin
+    ports:
+      - 8096:8096
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Manila
+    volumes:
+      - /mnt/sda1/docker/appdata/jellyfin:/config
+      - /mnt/sda1/data/media:/data
+
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
@@ -9,25 +34,10 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - "d:/docker/appdata/sonarr:/config"
-      - "d:/shared:/data"
+      - /mnt/sda1/docker/appdata/sonarr:/config
+      - /mnt/sda1/data:/data
     ports:
       - 8989:8989
-    restart: unless-stopped
-
-  qbittorrent:
-    container_name: qbittorrent
-    image: cr.hotio.dev/hotio/qbittorrent:release
-    ports:
-      - "8080:8080"
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - UMASK=002
-      - TZ=Asia/Manila
-    volumes:
-      - "d:/docker/appdata/qbittorrent:/config"
-      - "d:/shared/torrents:/data/torrents"
     restart: unless-stopped
 
   prowlarr:
@@ -38,7 +48,22 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - "d:/docker/appdata/prowlarr:/config"
+      - /mnt/sda1/docker/appdata/prowlarr:/config
     ports:
       - 9696:9696
+    restart: unless-stopped
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: cr.hotio.dev/hotio/qbittorrent:release
+    ports:
+      - 8080:8080
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Manila
+    volumes:
+      - /mnt/sda1/docker/appdata/qbittorrent:/config
+      - /mnt/sda1/data/torrents:/data/torrents
     restart: unless-stopped
