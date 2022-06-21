@@ -15,6 +15,7 @@ services:
     volumes:
       - ${DEFAULT_VOLUME}/${APP_DATA}/jellyfin:/config
       - ${DEFAULT_VOLUME}/${DATA}/media:/data
+    restart: unless-stopped
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
