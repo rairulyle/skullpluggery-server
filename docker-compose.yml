@@ -1,17 +1,7 @@
 ---
-version: "3.4"
+version: "3.8"
 
 services:
-  homeassistant:
-    container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
-    volumes:
-      - /mnt/sda1/docker/appdata/homeassistant:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-
   jellyfin:
     container_name: jellyfin
     image: cr.hotio.dev/hotio/jellyfin
@@ -23,8 +13,8 @@ services:
       - UMASK=002
       - TZ=Asia/Manila
     volumes:
-      - /mnt/sda1/docker/appdata/jellyfin:/config
-      - /mnt/sda1/data/media:/data
+      - ${DEFAULT_VOLUME}/${APP_DATA}/jellyfin:/config
+      - ${DEFAULT_VOLUME}/${DATA}/media:/data
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -34,8 +24,8 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - /mnt/sda1/docker/appdata/sonarr:/config
-      - /mnt/sda1/data:/data
+      - ${DEFAULT_VOLUME}/${APP_DATA}/sonarr:/config
+      - ${DEFAULT_VOLUME}/${DATA}:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -48,7 +38,7 @@ services:
       - PGID=1000
       - TZ=Asia/Manila
     volumes:
-      - /mnt/sda1/docker/appdata/prowlarr:/config
+      - ${DEFAULT_VOLUME}/${APP_DATA}/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -64,6 +54,6 @@ services:
       - UMASK=002
       - TZ=Asia/Manila
     volumes:
-      - /mnt/sda1/docker/appdata/qbittorrent:/config
-      - /mnt/sda1/data/torrents:/data/torrents
+      - ${DEFAULT_VOLUME}/${APP_DATA}/qbittorrent:/config
+      - ${DEFAULT_VOLUME}/${DATA}/torrents:/data/torrents
     restart: unless-stopped
