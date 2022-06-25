@@ -1,17 +1,18 @@
 ---
-version: "3.8"
-
 services:
   jellyfin:
     container_name: jellyfin
-    image: cr.hotio.dev/hotio/jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
     ports:
       - 8096:8096
+    group_add:
+      - "110"
     environment:
       - PUID=1000
       - PGID=1000
-      - UMASK=002
       - TZ=Asia/Manila
+    devices:
+      - /dev/dri:/dev/dri
     volumes:
       - ${DEFAULT_VOLUME}/${APP_DATA}/jellyfin:/config
       - ${DEFAULT_VOLUME}/${DATA}/media:/data
