@@ -5,7 +5,7 @@ services:
     image: containrrr/watchtower:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
+      - ${DEFAULT_VOLUME}/${APP_DATA}/watchtower/config.json:/config.json
     command: jellyfin radarr sonarr prowlarr qbittorrent
     environment:
       - WATCHTOWER_NOTIFICATION_EMAIL_FROM = ${EMAIL_USER}

@@ -4,7 +4,8 @@
   "description": "rairulyle's personal nas",
   "scripts": {
     "start": "docker compose up -d",
-    "stop": "docker compose down"
+    "stop": "docker compose down",
+    "update": "docker compose pull"
   },
   "repository": {
     "type": "git",
